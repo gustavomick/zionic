@@ -1,0 +1,31 @@
+{
+  "name": "zionic",
+  "dependencies": {},
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20161016133926",
+    "angular-mocks": "registry:dt/angular-mocks#1.5.0+20160608104721",
+    "angular-ui-router": "registry:dt/angular-ui-router#1.1.5+20160810191828",
+    "cordova": "registry:dt/cordova#0.0.0+20160607055823",
+    "cordova-ionic": "registry:dt/cordova-ionic#0.0.0+20160316155526",
+    "cordova-ionic/plugins/keyboard": "registry:dt/cordova-ionic/plugins/keyboard#0.0.0+20160317120654",
+    "cordova/plugins/statusbar": "registry:dt/cordova/plugins/statusbar#0.0.0+20160316155526",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "ionic": "registry:dt/ionic#0.0.0+20160907111202",
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
+    "node": "registry:dt/node#6.0.0+20161014191813",
+    "pouchdb": "registry:dt/pouchdb#5.4.4+20160724064500",
+    "pouchdb-adapter-websql": "registry:dt/pouchdb-adapter-websql#5.4.4+20160724064500",
+    "pouchdb-browser": "registry:dt/pouchdb-browser#5.4.4+20160724064500",
+    "pouchdb-core": "registry:dt/pouchdb-core#5.4.4+20160919190957",
+    "pouchdb-http": "registry:dt/pouchdb-http#5.4.4+20160724064500",
+    "pouchdb-mapreduce": "registry:dt/pouchdb-mapreduce#5.4.4+20160724064500",
+    "pouchdb-node": "registry:dt/pouchdb-node#5.4.4+20160724064500",
+    "pouchdb-replication": "registry:dt/pouchdb-replication#5.4.4+20160724064500",
+    "redux": "registry:dt/redux#3.5.2+20160703092728",
+    "redux-logger": "registry:dt/redux-logger#2.6.0+20160619033847",
+    "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
+  },
+  "globalDevDependencies": {
+    "jasmine": "registry:dt/jasmine#2.5.0+20161003201800"
+  }
+}
