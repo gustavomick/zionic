@@ -1,0 +1,44 @@
+<div ng-if="!weatherService.isUpdated" class="bar bar-header bar-dark">
+	<h1 class="title">{{weatherService.errorMessage}}</h1>
+</div>
+<div ng-if="weathers.length==0" class="bar bar-header bar-dark">
+	<h1 class="title">Click Refresh!</h1>
+</div>
+
+<!--- using collection-reapeat to enahce performance of big collectinos -->
+<!--<ion-list>
+	<ion-item collection-repeat="weather in weathers" style="padding:1em">
+		<img ng-src="{{weather.photoUrl}}" >
+		{{weather}}
+	</ion-item>
+</ion-list>-->
+
+
+<div class="list card" ng-repeat="(ix,weather) in weatherService.weathersCurrentLocation|orderBy:'$index':true">
+
+	<div class="item item-avatar">
+		<img ng-src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png" />
+		<div class="row">
+			<div class="col">
+				<h2>{{weather.weather[0].main}}</h2>
+				<p>{{weather.weather[0].description}}</p>
+
+			</div>
+			<div class="col">{{weather.main.temp}}°K
+				<p>{{weather.dt.toLocaleString()}}</p>
+			</div>
+
+		</div>
+
+	</div>
+ 
+
+	<div class="item item-image">
+		<img ng-src="{{weather.photo.url}}">
+	</div>
+
+	<a class="item item-icon-left" ng-click="goSelectedId(weathers.length-ix-1)" >  <!--ui-sref="app.map({id:ix})"-->
+		<i class="icon ion-location"></i>({{weathers.length-ix-1}}) Show Map
+	</a>
+
+</div>

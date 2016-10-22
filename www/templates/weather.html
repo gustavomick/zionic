@@ -1,0 +1,15 @@
+<ion-view view-title="Weather">
+	<ion-nav-buttons side="left">
+		<button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+	</ion-nav-buttons>
+	<ion-nav-buttons side="right">
+		<button class="button button-positive" style="margin-right:5px" ng-click="menuCtrl.refreshDash()">Refresh</button>
+		<button class="button button-royal" ng-click="menuCtrl.weatherService.clean()">Clean</button>
+	</ion-nav-buttons>
+	<ion-content>
+		<!--<ion-refresher pulling-text="Pull to refresh..." on-refresh="dashCtrl.refresh()"></ion-refresher>-->
+		<!--::dashCtrl.dashRefresh-->
+		<weather-list refresh-when-emit="refresh-dash"></weather-list>
+	</ion-content>
+</ion-view>
