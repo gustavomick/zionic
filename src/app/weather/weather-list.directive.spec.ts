@@ -51,8 +51,6 @@ describe('weather list directive', () => {
         $httpBackend.when('GET', /https:\/\/api.flickr.com\/services\/rest\//) // ?api_key=a1b56d94e030a41625b4e0ac6722533c&extras=geo&format=json&has_geo=1&lat=-34.5998152&lon=-58.4345914&method=flickr.photos.search&nojsoncallback=1&per_page=5/)
             .respond(mockedData.resFlickr);
 
-        $httpBackend.when('GET', /http:\/\/api.openweathermap.org\/data\/2.5\/weather.*/) // appid=64077f1122eceae4d76019103faca3a0&lat=-34.5998152&lon=-58.4345914&units=Imperial
-            .respond(mockedData.resWeather);
 
     }));
     // end from
@@ -70,6 +68,11 @@ describe('weather list directive', () => {
 
 
     it('should add weather items', function () {
+
+        $httpBackend.when('GET', /http:\/\/api.openweathermap.org\/data\/2.5\/weather.*/) // appid=64077f1122eceae4d76019103faca3a0&lat=-34.5998152&lon=-58.4345914&units=Imperial
+            .respond(mockedData.resWeather);
+
+
         expect(scope.weathers.length).toBe(0);
 
         let lastWeather;
@@ -87,6 +90,19 @@ describe('weather list directive', () => {
 
         expect(element[0].querySelectorAll('.list.card').length).toBe(2);
         expect(element[0].querySelectorAll('.list.card')[1].innerText.indexOf('(0) Show Map')).toBeGreaterThan(0, 'index is not reversed');
+
+    });
+
+    it('should show error when http/gps is gone', () => {
+        $httpBackend.when('GET', /http:\/\/api.openweathermap.org\/data\/2.5\/weather.*/).respond(400);
+
+        pubSubService.event.emit(scope.ree);
+        $rootScope.$apply();
+        $httpBackend.flush();
+        let errele = element[0].querySelectorAll('.errmsg');
+        expect(errele.length).toBe(1, 'error message must exist');
+
+        expect(errele[0].innerText.length).toBeGreaterThan(0,'error msg cant be empty');
 
     });
 
