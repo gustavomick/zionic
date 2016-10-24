@@ -1,14 +1,21 @@
-## zionic
+master 
+[![Build Status](https://travis-ci.org/gustavomick/zionic.svg?branch=master)](https://travis-ci.org/gustavomick/zionic)
+ challenge 
+[![Build Status](https://travis-ci.org/gustavomick/zionic.svg?branch=challenge)](https://travis-ci.org/gustavomick/zionic)
 
+# Zionic
 - [x] Ionic 1.3
 - [x] Typescript
-- [x] ngCordova
-- [x] Webpack
+- [x] ngCordova (Geolocation)
+- [x] http & promises (weather & flickr apis)
 - [x] Jasmine, Karma & Protractor
+- [x] Webpack
 - [x] Crosswalk
 
 
 ## Installation
+
+to run
 
 ```bash
 $ npm run prep
