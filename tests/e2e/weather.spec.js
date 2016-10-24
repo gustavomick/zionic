@@ -1,26 +1,34 @@
-describe('todo list', function () {
+describe('weather list', function () {
     var weatherList;
-browser.debugger()
+    //browser.pause()
 
     beforeEach(function () {
-        browser.get('http://localhost:8100/#/app/weather');
-
-        weatherList = element.all(by.repeater('todo in todoList.todos'));
-        weatherList = element[0].querySelectorAll('.list.card');
+        browser.get('./#/app/weather');
+        weatherList = element.all(by.css('.list.card')); 
     });
 
 
     it('should refresh and clean weather list', function () {
-        var cleanButton = element(by.css('[value="Clean"]')); // element(by.buttonText('Button 1'))
-        var refreshButton = element(by.css('[value="Refresh"]'));
+        var cleanButton =  element(by.buttonText('Clean'))
+        var refreshButton = element(by.buttonText('Refresh'));
+        // browser.pause()
 
         expect(weatherList.count()).toEqual(0);
-        refreshButton.click();
+
+        refreshButton.click();        
+        browser.sleep(3000); 
+        // browser.waitForAngular();
         expect(weatherList.count()).toEqual(1);
-        refreshButton.click();
+
+        refreshButton.click();        
+        browser.sleep(3000); 
+        // browser.waitForAngular();
         expect(weatherList.count()).toEqual(2);
-        cleanButton.click();
+
+        cleanButton.click();        
+        // browser.waitForAngular();
         expect(weatherList.count()).toEqual(0);
+
 
     });
 });

@@ -4,9 +4,12 @@ exports.config = {
   chromeOnly: true,
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
-    'browserName': 'chrome'
+      'browserName': 'chrome',
+      'chromeOptions': {                
+          args: ['--disable-web-security']
+      } 
   },
-
+  baseUrl: 'http://localhost:8100',
   // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
@@ -15,7 +18,7 @@ exports.config = {
   specs: ['./weather.spec.js'],
 
   // Options to be passed to Jasmine.
-  jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
-  }
+    jasmineNodeOpts: {
+        isVerbose: true,
+    }
 };
