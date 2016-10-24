@@ -12,7 +12,7 @@ export interface IWeatherService {
 export default class WeatherService implements IWeatherService {
     // static $inject: Array<string> = ['$http', 'GeoService', '$c'];
     weathersCurrentLocation = [];
-    constructor(private $http, private locationService: loc.ILocationService, private $c: CONSTANTS, private pubSubService: pubsub.IPubSubService, private $q: angular.IQService, private flickrService: flickr.IFlickrService,  private exceptionService: exception.IExceptionService) {
+    constructor(private $http, private locationService: loc.ILocationService, private $c: CONSTANTS, private pubSubService: pubsub.IPubSubService, private $q: angular.IQService, private flickrService: flickr.IFlickrService, private exceptionService: exception.IExceptionService) {
         // example of service receving event, currently recieving at directive
         // this.PubSubService.event.on(null, 'refresh-weather', this.getCurrentWithMyLocation)
     }
@@ -58,9 +58,18 @@ export default class WeatherService implements IWeatherService {
     };
     parseError = (e) => {
         let me = this;
-        me.isUpdated = false;
+
         let meta = { ori: cons.ErrorOrigin.WEATHER, msg: 'Info delayed, please retry later.' };
-        return me.exceptionService.wrapError(e, meta);
+        return me.exceptionService.wrapError(e, meta)
+            .catch((err) => {
+                me.isUpdated = false;
+                if (e.meta.first.ori === cons.ErrorOrigin.HTTP) {
+                    me.errorMessage = err.meta.msg;
+                }else {
+                    me.errorMessage = err.meta.first.msg;
+                }
+                return me.$q.reject(err);
+            });
     };
 }
 

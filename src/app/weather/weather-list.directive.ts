@@ -10,15 +10,15 @@ class WeatherListDirective implements ng.IDirective {
     templateUrl = './templates/weather-list.html';
     constructor(private $interval: ng.IIntervalService, private weatherService: ws.IWeatherService, private $q: ng.IQService, private pubSubService: pubsub.IPubSubService, private $state) { }
     static instance = ($interval, weatherService, $q, pubSubService, $state): any => {
-        "ngInject";
+        'ngInject';
         return new WeatherListDirective($interval, weatherService, $q, pubSubService, $state);
     }
     vm;
     controller = ($scope, weatherService: ws.IWeatherService) => {
-        "ngInject";
+        'ngInject';
         let vm = $scope;
         let me = this;
-        vm.weatherService = weatherService; // to avoid using of extra watchers
+        vm.weatherService = weatherService; // added for repeater to avoid using of extra watchers
         vm.weathers = vm.weatherService.weathersCurrentLocation;
         vm.goSelectedId = me.goSelectedId;
     }
@@ -28,7 +28,6 @@ class WeatherListDirective implements ng.IDirective {
         let vm = this.vm = scope;
         // example of recieving events with adaptable name event
         // emited from menu.controller.ts
-        // not usually needed it, because it can be handled and ref directly throw service inj
         me.pubSubService.event.on(vm, attrs.refreshWhenEmit, me.refresh);
         vm.isupdated = true;
         vm.errorMessage = '';
@@ -49,6 +48,9 @@ class WeatherListDirective implements ng.IDirective {
            if (lastWeather) {
                 vm.lastUpdated = lastWeather.dt;
            }
+           vm.err = null;
+        }).catch((res) => {
+            vm.err = res;
         });
     }
 

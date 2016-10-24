@@ -125,7 +125,7 @@ export class MapComponent {
     //         me.vm.markers['M' + id] = {
     //             lat: me.center.lat,
     //             lng: me.center.lng,
-    //             message: "hola manola",
+    //             message: "testing",
     //             focus: true,
     //             draggable: false
     //             //   type:'Point'

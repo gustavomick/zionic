@@ -22,7 +22,7 @@ export class ExceptionService implements IExceptionService {
             e.meta.inner = inner;
             e.meta.first = inner.first;
             // Object.assign(e.meta, meta);
-        } else if (typeof (e) === 'string') {  // no es un obj es un string
+        } else {// if (typeof (e) === 'string') {  // no es un obj es un string
             meta.emsg = e;
             meta.inner = null;
             e = { meta: meta };

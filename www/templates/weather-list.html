@@ -1,7 +1,7 @@
 <div ng-if="!weatherService.isUpdated" class="bar bar-header bar-dark">
 	<h1 class="title">{{weatherService.errorMessage}}</h1>
 </div>
-<div ng-if="weathers.length==0" class="bar bar-header bar-dark">
+<div ng-if="weatherService.weathersCurrentLocation.length==0 && !err" class="bar bar-header bar-dark">
 	<h1 class="title">Click Refresh!</h1>
 </div>
 
