@@ -29,7 +29,7 @@ describe('weather list directive', () => {
     }));
     ///////
 
-    let element, scope;
+    let element, scope, dirscope;
 
     beforeEach(inject(function ($rootScope, $compile) {
         scope = $rootScope.$new();
@@ -37,6 +37,8 @@ describe('weather list directive', () => {
         element = '<weather-list refresh-when-emit="{{::ree}}"></weather-list>';
         element = $compile(element)(scope);
         scope.$digest();
+        dirscope = element.isolateScope();
+        
     }));
 
     /// from svc.spec
@@ -71,21 +73,19 @@ describe('weather list directive', () => {
 
         $httpBackend.when('GET', /http:\/\/api.openweathermap.org\/data\/2.5\/weather.*/) // appid=64077f1122eceae4d76019103faca3a0&lat=-34.5998152&lon=-58.4345914&units=Imperial
             .respond(mockedData.resWeather);
-
-
-        expect(scope.weathers.length).toBe(0);
+        expect(dirscope.weathers.length).toBe(0);
 
         let lastWeather;
 
         pubSubService.event.emit(scope.ree);
         $rootScope.$apply();
         $httpBackend.flush();
-        expect(scope.weathers.length).toBe(1, 'must add a weather item');
+        expect(dirscope.weathers.length).toBe(1, 'must add a weather item');
 
         pubSubService.event.emit(scope.ree);
         $rootScope.$apply();
         $httpBackend.flush();
-        expect(scope.weathers.length).toBe(2, 'must add a second weather item');
+        expect(dirscope.weathers.length).toBe(2, 'must add a second weather item');
         let ele = element;
 
         expect(element[0].querySelectorAll('.list.card').length).toBe(2);
@@ -95,7 +95,7 @@ describe('weather list directive', () => {
 
     it('should show error when http/gps is gone', () => {
         $httpBackend.when('GET', /http:\/\/api.openweathermap.org\/data\/2.5\/weather.*/).respond(400);
-
+ 
         pubSubService.event.emit(scope.ree);
         $rootScope.$apply();
         $httpBackend.flush();
@@ -105,5 +105,6 @@ describe('weather list directive', () => {
         expect(errele[0].innerText.length).toBeGreaterThan(0,'error msg cant be empty');
 
     });
+
 
 });

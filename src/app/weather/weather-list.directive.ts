@@ -2,9 +2,10 @@ import * as pubsub from '../_infra/pubsub.service';
 import * as ws from './weather.service';
 class WeatherListDirective implements ng.IDirective {
     restrict = 'E';
-    // scope :{
-    //     refreshWhenEmit :'@'
-    // }
+    scope = {
+        refreshWhenEmit :'@',
+        refreshCompleted :'&'
+    }
     // controllerAs = "wlCtrl";
     // bindToController =  true;
     templateUrl = './templates/weather-list.html';
@@ -14,12 +15,14 @@ class WeatherListDirective implements ng.IDirective {
         return new WeatherListDirective($interval, weatherService, $q, pubSubService, $state);
     }
     vm;
+    afterRefresh; isupdated ;errorMessage; lastUpdated; err;
     controller = ($scope, weatherService: ws.IWeatherService) => {
         'ngInject';
-        let vm = $scope;
         let me = this;
-        vm.weatherService = weatherService; // added for repeater to avoid using of extra watchers
-        vm.weathers = vm.weatherService.weathersCurrentLocation;
+        let vm = $scope; 
+        vm.weatherService = weatherService; // added for repeater to avoid using of extra watchers - if there are many specif internal that is used like a lot  could be better be "watched" to save name refactorings (if that matters)
+        $scope.$watchCollection( ()=> me.weatherService.weathersCurrentLocation, ()=>{ vm.weathers =  me.weatherService.weathersCurrentLocation }); // example of watched item service
+        vm.refresh = me.refresh;
         vm.goSelectedId = me.goSelectedId;
     }
 
@@ -40,7 +43,7 @@ class WeatherListDirective implements ng.IDirective {
     }
     refresh = (): Promise<any> => {
         let me = this;
-        let vm = me.vm;
+        let vm = me.vm; // = me.vm;
         return me.weatherService.getCurrentWithMyLocation().then((lastWeather) => {
            // not really needed because im using direct svc ref also save future refacts and sahred watchs
            // refs https://www.bennadel.com/blog/2744-exposing-a-service-directly-on-the-scope-in-angularjs.htm 
@@ -51,6 +54,8 @@ class WeatherListDirective implements ng.IDirective {
            vm.err = null;
         }).catch((res) => {
             vm.err = res;
+        }).finally(()=>{
+            vm.refreshCompleted()
         });
     }
 

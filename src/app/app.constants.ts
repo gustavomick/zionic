@@ -24,6 +24,12 @@ export enum TypeActions {
     DELETE_TODO, INSERT_TODO, UPDATE_TODO,
 }
 
+
+export class Events {
+    static weatherRefresh = "weatherRefresh" 
+    static weatherClean = "weatherClean" 
+}
+
 export interface IPouchDb { // minimal dummy interface to avoid ambiguity with dataaccess db
     find: any;
     create: any;

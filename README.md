@@ -28,3 +28,7 @@ to test
 ```bash
 $ npm test
 ```
+
+## High Level Diagram
+
+![Alt text](./docs/zionic.png?raw=true)

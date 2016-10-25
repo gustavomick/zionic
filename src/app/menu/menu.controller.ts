@@ -1,4 +1,6 @@
 import * as pubsub from '../_infra/pubsub.service';
+import * as cons from '../app.constants';
+
 export class MenuController {
   // static $inject: Array<string> = ['dependency1'];
   constructor(private pubSubService: pubsub.IPubSubService, private $scope, $ionicModal, private $timeout, private weatherService) { // , $ngRedux) {
@@ -6,7 +8,7 @@ export class MenuController {
   }
   modal;
   refreshDash= () => {
-    this.pubSubService.event.emit('refresh-dash');
+    this.pubSubService.event.emit(cons.Events.weatherRefresh);
   }
 
 

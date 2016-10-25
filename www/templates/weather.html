@@ -8,8 +8,8 @@
 		<button class="button button-royal" ng-click="menuCtrl.weatherService.clean()">Clean</button>
 	</ion-nav-buttons>
 	<ion-content>
-		<!--<ion-refresher pulling-text="Pull to refresh..." on-refresh="dashCtrl.refresh()"></ion-refresher>-->
+		<ion-refresher pulling-text="Pull to refresh..." on-refresh="weatherCtrl.refresh()"></ion-refresher>
 		<!--::dashCtrl.dashRefresh-->
-		<weather-list refresh-when-emit="refresh-dash"></weather-list>
+		<weather-list refresh-when-emit="{{::weatherCtrl.weatherRefresh}}" refresh-completed="weatherCtrl.refreshCompleted()"></weather-list>
 	</ion-content>
 </ion-view>
