@@ -87,7 +87,8 @@
     "lint": "tslint ./src/**/*.ts",
     "wpclean": "rimraf www/js/**/*.js",
     "wpbuild-hard": "npm run wpclean && webpack --config ./config/webpack.dev.js --colors --watch --progress --profile --bail",
-    "wpbuild": "npm run wpclean && webpack --progress --profile --colors --display-error-details --display-cached --watch ",
+    "wpbuild": "npm run wpbuild-one --watch ",
+    "wpbuild-one": "npm run wpclean && webpack --progress --profile --colors --display-error-details --display-cached --watch ",
     "release-android-keygen": "keytool -genkey -v -keystore .\\platforms\\android.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000",
     "release-android": "ionic build android --release && jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass zionic2016 -keystore .\\platforms\\android.keystore .\\platforms\\android\\build\\outputs\\apk\\android-release-unsigned.apk alias_name &&  \"%ANDROID_HOME%\\build-tools\\23.0.1\\zipalign\" -f -v 4 .\\platforms\\android\\build\\outputs\\apk\\android-release-unsigned.apk .\\platforms\\android\\build\\outputs\\apk\\zionic-release.apk",
     "release-android-arm": "ionic build android --release && jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -storepass zionic2016 -keystore .\\platforms\\android.keystore .\\platforms\\android\\build\\outputs\\apk\\android-armv7-release-unsigned.apk alias_name &&  \"%ANDROID_HOME%\\build-tools\\23.0.2\\zipalign\" -f -v 4 .\\platforms\\android\\build\\outputs\\apk\\android-armv7-release-unsigned.apk .\\platforms\\android\\build\\outputs\\apk\\zionic-release.apk"

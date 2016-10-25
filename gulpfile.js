@@ -27,7 +27,7 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch',['watch-sass']); // ,'watch-tsc'
+gulp.task('watch',['watch-sass','sass']); // ,'watch-tsc'
 
 gulp.task('watch-sass', function() {
   gulp.watch(paths.sass, ['sass']);
